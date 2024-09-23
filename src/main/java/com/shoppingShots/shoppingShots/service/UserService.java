@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface UserService {
     public OpResponse saveUser(UserDO user, List<Address> address);
+    public UserDO findByExample(UserDO user);
 }

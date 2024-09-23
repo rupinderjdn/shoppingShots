@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,4 +22,6 @@ public class InternalUser extends UserDO {
     private String department;
     private String position;
     private LocalDateTime lastLogin;
+    private List<String> role;
+
 }

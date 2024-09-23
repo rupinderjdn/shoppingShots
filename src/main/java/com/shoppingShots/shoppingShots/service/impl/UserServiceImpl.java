@@ -8,7 +8,9 @@ import com.shoppingShots.shoppingShots.model.InternalUser;
 import com.shoppingShots.shoppingShots.repository.AddressRepository;
 import com.shoppingShots.shoppingShots.repository.UserRepository;
 import com.shoppingShots.shoppingShots.service.UserService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -27,6 +29,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public OpResponse saveUser(UserDO user, List<Address> address) {
         try{
+            UserDO queryUser = new UserDO();
+            queryUser.setEmail(user.getEmail());
+            if(findByExample(queryUser) != null){
+                return new OpResponse("User exists with email id :-"+user.getEmail(),400);
+            }
             if(user instanceof InternalUser){
                 UserDO user1  = userRepository.save(user);
                 return new OpResponse("Save successfully with id"+user1.getId(),200);
@@ -51,4 +58,10 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    @Override
+    public UserDO findByExample(UserDO userDO){
+        return userRepository.findOne(Example.of(userDO)).orElse(null);
+    }
+
 }

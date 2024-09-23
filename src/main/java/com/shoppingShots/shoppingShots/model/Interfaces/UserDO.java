@@ -17,17 +17,20 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class UserDO {
+public class UserDO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(nullable = false)
     private String name;
     private String mobileNumber;
+
+    @Column(unique = true, nullable = false)  // Set email to be unique
     private String email;
     private String password;
     private String profileImage;
-    private List<String> role;
     private Boolean isActive;
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
