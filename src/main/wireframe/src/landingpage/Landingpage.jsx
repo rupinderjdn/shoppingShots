@@ -12,12 +12,14 @@ const LandingPage = () => {
   return (
     <>
       <Navbar />
+    {/* // TODO  Jaspreet   these components should be generic and can be used in other pages as well */}
       <HeroCarousel />
       <NewArrivals />
       <CategorySection />
       <SpecialOffer />
       <Handicraft/>
       <Socks/>
+      {/* // TODO Ends */}
       <Footer />
     </>
   );

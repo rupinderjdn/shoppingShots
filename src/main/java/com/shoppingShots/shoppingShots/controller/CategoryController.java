@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/categoryService") //request with /admin will be routed here
+@RequestMapping("/categoryService")
 public class CategoryController {
 
     @Autowired
@@ -52,7 +52,6 @@ public class CategoryController {
         OpResponse response = null;
 
         if(categoryService.existCategory(category.getName())){
-            session.setAttribute("errorMsg","Category name already exists");
             response = new OpResponse ("Category name already exists, try with a different name",400);
         }
         else{
