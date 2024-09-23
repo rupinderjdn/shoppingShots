@@ -8,6 +8,7 @@ import java.util.List;
 public interface ProductService {
     public Product saveProduct(Product product);
     public List<Product> getAllProducts();
+    public List<Product> getAllActiveProducts();
     public Boolean deleteProduct(int id);
     public Product getProductById(int id);
     public List<Product> getProductByExample(Example<Product> product);

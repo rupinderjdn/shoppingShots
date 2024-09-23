@@ -26,6 +26,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getAllActiveProducts() {
+        return productRepository.findByIsActiveTrue();
+    }
+
+    @Override
     public Boolean deleteProduct(int id) {
         Product product = productRepository.findById(id).orElse(null);
         assert product != null;

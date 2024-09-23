@@ -1,6 +1,5 @@
 package com.shoppingShots.shoppingShots.service.impl;
 
-import com.shoppingShots.shoppingShots.controller.AdminRestController;
 import com.shoppingShots.shoppingShots.model.Category;
 import com.shoppingShots.shoppingShots.repository.CategoryRepository;
 import com.shoppingShots.shoppingShots.service.CategoryService;
