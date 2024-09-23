@@ -18,9 +18,12 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //what is this??
-    private int id;
+    private Integer id;
     private String name;
     private String imageName;
     private Boolean isActive;
 
+    public String toString(){
+        return this.id+"|"+this.name+"|"+this.imageName+"|"+this.isActive;
+    }
 }

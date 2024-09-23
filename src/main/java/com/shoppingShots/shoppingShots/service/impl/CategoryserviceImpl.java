@@ -1,9 +1,13 @@
 package com.shoppingShots.shoppingShots.service.impl;
 
+import com.shoppingShots.shoppingShots.controller.AdminRestController;
 import com.shoppingShots.shoppingShots.model.Category;
 import com.shoppingShots.shoppingShots.repository.CategoryRepository;
 import com.shoppingShots.shoppingShots.service.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -11,7 +15,7 @@ import java.util.List;
 
 @Service
 public class CategoryserviceImpl implements CategoryService {
-
+    private static final Logger logger = LoggerFactory.getLogger(CategoryserviceImpl.class);
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -32,6 +36,11 @@ public class CategoryserviceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> getAllActiveCategory() {
+        return categoryRepository.findByIsActiveTrue();
+    }
+
+    @Override
     public Boolean deleteCategory(int id) {
         Category category = categoryRepository.findById(id).orElse(null);
         if(!ObjectUtils.isEmpty(category)){
@@ -47,4 +56,12 @@ public class CategoryserviceImpl implements CategoryService {
 
         return category;
     }
+
+    @Override
+    public List<Category> getCategoryByExample(Example<Category> example) {
+        logger.info(example.getProbe().toString());
+        List<Category> category = categoryRepository.findAll(example);
+        return category;
+    }
+
 }

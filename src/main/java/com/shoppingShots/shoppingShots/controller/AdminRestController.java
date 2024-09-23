@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -34,7 +35,7 @@ public class AdminRestController {
     private CategoryService categoryService;
     @Autowired
     private ProductService productService;
-    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AdminRestController.class);
 
 //    @GetMapping("/")
 //    public String index(){
@@ -43,9 +44,21 @@ public class AdminRestController {
 
 
     @GetMapping("/category")
-    public List<Category> category(Model m){
-        List<Category> categories = categoryService.getAllCategory();
-        logger.info(String.valueOf(categories.size()));
+    public List<Category> category(){
+
+        //        List<Category> categories = categoryService.getAllCategory();
+
+        Category category = new Category();
+        category.setName("restTest3");
+        List<Category> categories = categoryService.getCategoryByExample(Example.of(category));
+
+        //        List<Category> categories = categoryService.getAllActiveCategory();
+        return categories;
+    }
+
+    @GetMapping("/queryCategory")
+    public List<Category> queryCategory(Category category){
+        List<Category> categories = categoryService.getCategoryByExample(Example.of(category));
         return categories;
     }
 
@@ -194,4 +207,9 @@ public class AdminRestController {
         return opResponse;
     }
 
+    @GetMapping("/queryProduct")
+    public List<Product> queryProduct(Product product){
+        List<Product> products = productService.getProductByExample(Example.of(product));
+        return products;
+    }
 }

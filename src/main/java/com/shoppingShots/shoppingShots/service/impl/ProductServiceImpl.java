@@ -4,6 +4,7 @@ import com.shoppingShots.shoppingShots.model.Product;
 import com.shoppingShots.shoppingShots.repository.ProductRepository;
 import com.shoppingShots.shoppingShots.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,5 +37,10 @@ public class ProductServiceImpl implements ProductService {
     public Product getProductById(int id) {
         Product product = productRepository.findById(id).orElse(null);
         return product;
+    }
+
+    @Override
+    public List<Product> getProductByExample(Example<Product> product) {
+        return productRepository.findAll(product);
     }
 }
