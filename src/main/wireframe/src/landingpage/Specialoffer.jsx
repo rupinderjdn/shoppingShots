@@ -21,7 +21,7 @@ const SpecialOffer = () => {
           <div className="md:w-1/2">
             {/* Standard img tag for image */}
             <img 
-              src="src\assets\img\others2.webp" 
+              src="/img/others2.webp" 
               alt="Special Offer" 
               width={600} 
               height={300} 

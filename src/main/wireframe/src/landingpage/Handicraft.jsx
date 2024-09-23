@@ -2,13 +2,13 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import others2 from '../assets/img/hand4.jpg'; 
-import hand3 from '../assets/img/hand3.webp'; 
-import hos3 from '../assets/img/hand.webp'; 
-import others1 from '../assets/img/hand5.webp';
+// import others2 from '/img/hand4.jpg'; 
+// import hand3 from '/img/hand3.webp'; 
+// import hos3 from '/img/hand.webp'; 
+// import others1 from '/img/hand5.webp';
 export default function Handicraft() {
   // Array of product objects with name and imageSrc
-  const products = [ { name: "Product 1", imageSrc: others2 }, { name: "Product 2", imageSrc: hand3 }, { name: "Product 3", imageSrc: hos3 }, { name: "Product 4", imageSrc: others1 }, ];
+  const products = [ { name: "Product 1", imageSrc: '/img/hand4.jpg' }, { name: "Product 2", imageSrc: '/img/hand3.webp' }, { name: "Product 3", imageSrc: '/img/hand.webp' }, { name: "Product 4", imageSrc: '/img/hand5.webp' }, ];
 
   const settings = {
     dots: true,

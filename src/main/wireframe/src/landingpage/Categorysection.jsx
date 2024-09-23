@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from React Router
-import hand3 from '../assets/img/hand3.webp'; 
-import hos3 from '../assets/img/hos3.jpg'; 
-import others from'../assets/img/others1.jpg'
+// import hand3 from '/img/hand3.webp'; 
+// import hos3 from '/img/hos3.jpg'; 
+// import others from'/img/others1.jpg'
 const CategorySection = () => {
   const categories = [
-    { name: 'Hoisery', imageSrc: hos3 },
-    { name: 'Handicrafts', imageSrc: hand3 },
-    { name: 'Others', imageSrc: others },
+    { name: 'Hoisery', imageSrc: '/img/hos3.webp' },
+    { name: 'Handicrafts', imageSrc: '/img/hand3.webp' },
+    { name: 'Others', imageSrc: '/img/others1.jpg' },
   ];
 
   return (

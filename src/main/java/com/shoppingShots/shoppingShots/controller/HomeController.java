@@ -14,7 +14,7 @@ public class HomeController {
     public String index()
     {
         logger.info("Here");
-        return "index";
+        return "../static/index.html";
     }
 
     @GetMapping("/login")

@@ -1,15 +1,15 @@
 import React from 'react'; // Importing images
-import others2 from '../assets/img/hos2.jpg'; 
-import hand3 from '../assets/img/hos4.jpg'; 
-import hos3 from '../assets/img/hos3.jpg'; 
-import others1 from '../assets/img/hos1.jpg';
+// import others2 from '/img/hos2.jpg'; 
+// import hand3 from '/img/hos4.jpg'; 
+// import hos3 from '/img/hos3.jpg'; 
+// import others1 from '/img/hos1.jpg';
 
 export default function Socks() {
   const products = [
-    { name: "Product 1", imageSrc: others2 },
-    { name: "Product 2", imageSrc: hand3 },
-    { name: "Product 3", imageSrc: hos3 },
-    { name: "Product 4", imageSrc: others1 },
+    { name: "Product 1", imageSrc: '/img/hos2.jpg' },
+    { name: "Product 2", imageSrc: '/img/hos4.jpg' },
+    { name: "Product 3", imageSrc: '/img/hos3.jpg' },
+    { name: "Product 4", imageSrc: '/img/hos1.jpg' },
   ];
 
   return (

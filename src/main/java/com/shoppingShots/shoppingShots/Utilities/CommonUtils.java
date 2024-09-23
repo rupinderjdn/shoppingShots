@@ -1,7 +1,5 @@
 package com.shoppingShots.shoppingShots.Utilities;
 
-import com.fasterxml.jackson.core.PrettyPrinter;
-import com.shoppingShots.shoppingShots.controller.AdminController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -19,7 +17,7 @@ public class CommonUtils {
 
     public static String checkForImageSave(MultipartFile file,String refPath,String oldImageName) throws IOException {
         String fileName = !file.isEmpty()?file.getOriginalFilename():null;
-        File saveFile = new ClassPathResource("static/img").getFile();
+        File saveFile = new ClassPathResource("public/img").getFile();
         Path path = null;
         if((fileName != null && !fileName.equalsIgnoreCase(oldImageName))){
             try{

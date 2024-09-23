@@ -69,7 +69,7 @@ public class AdminController {
                 // TODO should have category id also in the name, or only that should be the name
                 try{
                     logger.info("Saving file");
-                    File saveFile = new ClassPathResource("static/img").getFile();
+                    File saveFile = new ClassPathResource("public/img").getFile();
                     Path path = Paths.get(saveFile.getAbsoluteFile()+File.separator+"category_img"+File.separator+imageName);
                     logger.info(String.valueOf(path));
                     Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
@@ -140,7 +140,7 @@ public class AdminController {
         if(!ObjectUtils.isEmpty(savedProduct)){
             // TODO need a common method to save the image
             logger.info("Saving file");
-            File saveFile = new ClassPathResource("static/img").getFile();
+            File saveFile = new ClassPathResource("public/img").getFile();
             Path path = Paths.get(saveFile.getAbsoluteFile()+File.separator+"product_img"+File.separator+product.getImage());
             logger.info(String.valueOf(path));
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
