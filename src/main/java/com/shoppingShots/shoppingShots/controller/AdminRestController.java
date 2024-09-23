@@ -93,44 +93,36 @@ public class AdminRestController {
         logger.info(OpResponse.toString());
         return OpResponse;
     }
-    // TODO might not need in the future
-    @GetMapping("/loadEditCategory/{id}")
-    public String loadEditCategory(@PathVariable int id,Model m){
-        m.addAttribute("category",categoryService.getCategoryById(id));
-        return "admin/edit_category";
+    @GetMapping("/getCategory/{id}")
+    public Category getCategory(@PathVariable int id,Model m){
+        return categoryService.getCategoryById(id);
     }
 
     @PostMapping("/updateCategory")
-    public String updateCategory(@ModelAttribute Category category, @RequestParam("file") MultipartFile file,HttpSession session) throws IOException {
+    public OpResponse updateCategory(@ModelAttribute Category category, @RequestParam("file") MultipartFile file,HttpSession session) throws IOException {
+        OpResponse opResponse = null;
+        logger.info(String.valueOf(category.getId()));
+        logger.info(String.valueOf(category.getName()));
         Category oldCategory = categoryService.getCategoryById(category.getId());
         if(!ObjectUtils.isEmpty(oldCategory) && !ObjectUtils.isEmpty(category)){
             oldCategory.setName(category.getName());
             oldCategory.setIsActive(category.getIsActive());
             String newFileName = CommonUtils.checkForImageSave(file, ApplicationConstants.CATEGORY_IMAGE_REF_PATH,oldCategory.getImageName());
             if(newFileName!=null)oldCategory.setImageName(newFileName);
-            // Data JPA will saved this over the old category as id is similar
             Category savedCategory = categoryService.saveCategory(oldCategory);
             if(!ObjectUtils.isEmpty(savedCategory)){
-                session.setAttribute("succMsg","Updated successfully");
+                opResponse = new OpResponse("Updated successfully",200);
             }
             else{
-                session.setAttribute("errorMsg","Error in updating");
+                opResponse = new OpResponse("Error in updating",400);
             }
         }
         else{
-            session.setAttribute("errorMsg","Something is wrong !");
+            opResponse = new OpResponse("Something is wrong !",500);
         }
-        category = oldCategory;
-        return "redirect:/admin/loadEditCategory/"+category.getId();
+        return opResponse;
     }
-
-    @GetMapping("/loadAddProduct")
-    public String loadAddProduct(Model m){
-        List<Category> categories = categoryService.getAllCategory();
-        m.addAttribute("categories",categories);
-        return "admin/add_product";
-    }
-
+    
     @PostMapping("/saveProduct")
     public String saveProduct(@ModelAttribute Product product,@RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
         String fileName = file!=null ? file.getOriginalFilename() : "default.jpg";
