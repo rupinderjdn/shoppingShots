@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,4 +18,7 @@ public class ExternalUser extends User {
     private String billingInfo;
     private String preferredLanguage;
     private LocalDateTime lastOrderDate;
+    private List<Integer> productsPurchased;
+    private List<Integer> currentCart;
+    private List<Integer> wishList;
 }

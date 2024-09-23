@@ -21,9 +21,9 @@ public abstract class User {
     private String email;
     private String password;
     private String profileImage;
-    protected List<String> role;
-    protected Boolean isActive;
-    protected LocalDateTime createdAt;
-    protected LocalDateTime updatedAt;
+    private List<String> role;
+    private Boolean isActive;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }
