@@ -42,10 +42,12 @@ public class AdminController {
 
 
     @GetMapping("/category")
-    public String category(Model m){
+    public List<Category> category(Model m){
         // loading for all categories
-        m.addAttribute("categories",categoryService.getAllCategory());
-        return "admin/category";
+//        m.addAttribute("categories",categoryService.getAllCategory());
+        List<Category> categories = categoryService.getAllCategory();
+        logger.info(String.valueOf(categories.size()));
+        return categories;
     }
 
     @PostMapping("/saveCategory")
