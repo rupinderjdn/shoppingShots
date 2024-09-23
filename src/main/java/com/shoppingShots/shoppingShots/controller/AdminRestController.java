@@ -2,7 +2,7 @@ package com.shoppingShots.shoppingShots.controller;
 
 import com.shoppingShots.shoppingShots.Utilities.ApplicationConstants;
 import com.shoppingShots.shoppingShots.Utilities.CommonUtils;
-import com.shoppingShots.shoppingShots.Utilities.OPresponse;
+import com.shoppingShots.shoppingShots.Utilities.OpResponse;
 import com.shoppingShots.shoppingShots.model.Category;
 import com.shoppingShots.shoppingShots.model.Product;
 import com.shoppingShots.shoppingShots.service.CategoryService;
@@ -50,12 +50,12 @@ public class AdminRestController {
     }
 
     @PostMapping("/saveCategory")
-    public OPresponse saveCategory(@ModelAttribute Category category, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
-        OPresponse response = null;
+    public OpResponse saveCategory(@ModelAttribute Category category, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
+        OpResponse response = null;
 
         if(categoryService.existCategory(category.getName())){
             session.setAttribute("errorMsg","Category name already exists");
-            response = new OPresponse ("Category name already exists, try with a different name",400);
+            response = new OpResponse ("Category name already exists, try with a different name",400);
         }
         else{
             try{
@@ -64,32 +64,34 @@ public class AdminRestController {
                     category.setImageName(fileName);
                     Category savedCategory = categoryService.saveCategory(category);
                     if(ObjectUtils.isEmpty(savedCategory)){
-                        response = new OPresponse ("Not saved! internal server error",500);
+                        response = new OpResponse ("Not saved! internal server error",500);
                     }
-                    else response = new OPresponse ("Saved successfully",200);
+                    else response = new OpResponse ("Saved successfully",200);
                 }
                 else {
-                    response = new OPresponse ("File could not be saved, please check for request param",400);
+                    response = new OpResponse ("File could not be saved, please check for request param",400);
                 }
             }
             catch(Exception e){
                 e.printStackTrace();
-                response=new OPresponse (e.getMessage(),500);
+                response=new OpResponse (e.getMessage(),500);
             }
         }
         return response;
     }
 
     @GetMapping("/deleteCategory/{id}")
-    public String deleteCategory(@PathVariable int id,HttpSession session){
+    public OpResponse deleteCategory(@PathVariable int id,HttpSession session){
+        OpResponse OpResponse = null;
         Boolean isDeleted = categoryService.deleteCategory(id);
         if(isDeleted){
-            session.setAttribute("succMsg","category delete success");
+            OpResponse = new OpResponse("category delete success",200);
         }
         else{
-            session.setAttribute("errorMsg","something wrong on server");
+            OpResponse = new OpResponse("something wrong on server",400);
         }
-        return "redirect:/admin/category";
+        logger.info(OpResponse.toString());
+        return OpResponse;
     }
     // TODO might not need in the future
     @GetMapping("/loadEditCategory/{id}")
