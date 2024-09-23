@@ -2,6 +2,7 @@ package com.shoppingShots.shoppingShots.controller;
 
 import com.shoppingShots.shoppingShots.Utilities.ApplicationConstants;
 import com.shoppingShots.shoppingShots.Utilities.CommonUtils;
+import com.shoppingShots.shoppingShots.Utilities.OPresponse;
 import com.shoppingShots.shoppingShots.model.Category;
 import com.shoppingShots.shoppingShots.model.Product;
 import com.shoppingShots.shoppingShots.service.CategoryService;
@@ -25,9 +26,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
-@Controller
-@RequestMapping("/admin") //request with /admin will be routed here
-public class AdminController {
+@RestController
+@RequestMapping("/adminRest") //request with /admin will be routed here
+public class AdminRestController {
 
     @Autowired
     private CategoryService categoryService;
@@ -35,50 +36,48 @@ public class AdminController {
     private ProductService productService;
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
-    @GetMapping("/")
-    public String index(){
-        return "admin/index";
-    }
+//    @GetMapping("/")
+//    public String index(){
+//        return "admin/index";
+//    }
 
 
     @GetMapping("/category")
-    public String category(Model m){
-
-        m.addAttribute("categories",categoryService.getAllCategory());
-        return "admin/category";
+    public List<Category> category(Model m){
+        List<Category> categories = categoryService.getAllCategory();
+        logger.info(String.valueOf(categories.size()));
+        return categories;
     }
 
     @PostMapping("/saveCategory")
-    public String saveCategory(@ModelAttribute Category category, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
-
-        String imageName = file!=null ? file.getOriginalFilename() : "default.jpg";
-        category.setImageName(imageName);
+    public OPresponse saveCategory(@ModelAttribute Category category, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
+        OPresponse response = null;
 
         if(categoryService.existCategory(category.getName())){
             session.setAttribute("errorMsg","Category name already exists");
+            response = new OPresponse ("Category name already exists, try with a different name",400);
         }
         else{
-            Category savedCategory = categoryService.saveCategory(category);
-            if(ObjectUtils.isEmpty(savedCategory)){
-                session.setAttribute("errorMsg","Not saved! internal server error");
+            try{
+                String fileName = CommonUtils.checkForImageSave(file,ApplicationConstants.CATEGORY_IMAGE_REF_PATH,"");
+                if(fileName!=null){
+                    category.setImageName(fileName);
+                    Category savedCategory = categoryService.saveCategory(category);
+                    if(ObjectUtils.isEmpty(savedCategory)){
+                        response = new OPresponse ("Not saved! internal server error",500);
+                    }
+                    else response = new OPresponse ("Saved successfully",200);
+                }
+                else {
+                    response = new OPresponse ("File could not be saved, please check for request param",400);
+                }
             }
-            else{
-                // when category is saved then save the image in the static folder
-                // TODO should have category id also in the name, or only that should be the name
-                try{
-                    logger.info("Saving file");
-                    File saveFile = new ClassPathResource("public/img").getFile();
-                    Path path = Paths.get(saveFile.getAbsoluteFile()+File.separator+"category_img"+File.separator+imageName);
-                    logger.info(String.valueOf(path));
-                    Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-                    session.setAttribute("succMsg","Saved successfully");
-                }
-                catch(Exception e){
-                    logger.error("Exception happened");
-                }
+            catch(Exception e){
+                e.printStackTrace();
+                response=new OPresponse (e.getMessage(),500);
             }
         }
-        return "redirect:/admin/category"; // redirecting to above page
+        return response;
     }
 
     @GetMapping("/deleteCategory/{id}")
