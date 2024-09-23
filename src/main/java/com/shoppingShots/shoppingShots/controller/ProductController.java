@@ -38,7 +38,6 @@ public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
 
-// Function to save Product
     @PostMapping("/saveProduct")
     public OpResponse saveProduct(@ModelAttribute Product product,@RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
         OpResponse opResponse = null;

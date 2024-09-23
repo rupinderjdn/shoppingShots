@@ -40,7 +40,7 @@ public class CategoryserviceImpl implements CategoryService {
     }
 
     @Override
-    public Boolean deleteCategory(int id) {
+    public Boolean deleteCategory(Integer id) {
         Category category = categoryRepository.findById(id).orElse(null);
         if(!ObjectUtils.isEmpty(category)){
             categoryRepository.delete(category);
@@ -50,7 +50,7 @@ public class CategoryserviceImpl implements CategoryService {
     }
 
     @Override
-    public Category getCategoryById(int id) {
+    public Category getCategoryById(Integer id) {
         Category category = categoryRepository.findById(id).orElse(null);
 
         return category;

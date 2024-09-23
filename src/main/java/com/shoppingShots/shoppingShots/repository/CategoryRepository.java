@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-// don't know why second argument is an integer
 public interface CategoryRepository extends JpaRepository<Category,Integer> {
     public Boolean existsByName(String name);
     public List<Category> findByIsActiveTrue();

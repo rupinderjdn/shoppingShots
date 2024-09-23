@@ -1,5 +1,6 @@
 package com.shoppingShots.shoppingShots.Utilities;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -14,7 +15,7 @@ import java.nio.file.StandardCopyOption;
 
 public class CommonUtils {
     private static final Logger logger = LoggerFactory.getLogger(CommonUtils.class);
-
+    private static final ObjectMapper objectMapper = new ObjectMapper();
     public static String checkForImageSave(MultipartFile file,String refPath,String oldImageName) throws IOException {
         String fileName = !file.isEmpty()?file.getOriginalFilename():null;
         File saveFile = new ClassPathResource("public/img").getFile();
@@ -36,5 +37,15 @@ public class CommonUtils {
 
         }
         return fileName;
+    }
+
+    public static String convertToJson(Object object){
+        try {
+            String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+            return json;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

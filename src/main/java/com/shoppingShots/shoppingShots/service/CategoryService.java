@@ -10,7 +10,7 @@ public interface CategoryService {
     public Category saveCategory(Category category);
     public List<Category> getAllCategory();
     public List<Category> getAllActiveCategory();
-    public Boolean deleteCategory(int id);
-    public Category getCategoryById(int id);
+    public Boolean deleteCategory(Integer id);
+    public Category getCategoryById(Integer id);
     public List<Category> getCategoryByExample(Example<Category> category);
 }
