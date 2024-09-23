@@ -185,7 +185,7 @@ public class AdminRestController {
             oldProduct.setDiscountPrice(product.getDiscountPrice());
             oldProduct.setDescription(product.getDescription());
             oldProduct.setStock(product.getStock());
-            oldProduct.setActive(product.isActive());
+            oldProduct.setIsActive(product.getIsActive());
             String newFileName = CommonUtils.checkForImageSave(file, ApplicationConstants.PRODUCT_IMAGE_REF_PATH,oldProduct.getImage());
             if(newFileName!=null)oldProduct.setImage(newFileName);
             logger.info(oldProduct.getImage() + " ==> "+newFileName);

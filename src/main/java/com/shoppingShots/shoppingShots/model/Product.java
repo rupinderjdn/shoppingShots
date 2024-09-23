@@ -15,7 +15,7 @@ public class Product {
 
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private Integer Id;
 
     @Column(length = 500)
     private String title;
@@ -28,7 +28,7 @@ public class Product {
     private Double price;
     private Double discount;
     private Double discountPrice;
-    private int stock;
+    private Integer stock;
     private String image;
-    private boolean isActive;
+    private Boolean isActive;
 }
