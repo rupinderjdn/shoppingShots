@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'; // Import Link from React Router
 // import others from'/img/others1.jpg'
 const CategorySection = () => {
   const categories = [
-    { name: 'Hoisery', imageSrc: '/img/hos3.webp' },
+    { name: 'Hoisery', imageSrc: '/img/hos3.jpg' },
     { name: 'Handicrafts', imageSrc: '/img/hand3.webp' },
     { name: 'Others', imageSrc: '/img/others1.jpg' },
   ];

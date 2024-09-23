@@ -22,7 +22,7 @@ const HeroCarousel = () => {
         {/* Slide 1 */}
         <div className="relative">
           <img 
-            src="/img/imghandi.png" 
+            src="/img/handi.png" 
             alt="Slide 1" 
             width={1820} 
             height={500} 
@@ -43,7 +43,7 @@ const HeroCarousel = () => {
         {/* Slide 2 */}
         <div className="relative">
           <img 
-            src="/img/imgsock.png" 
+            src="/img/sock.png" 
             alt="Slide 2" 
             width={1820} 
             height={500} 
