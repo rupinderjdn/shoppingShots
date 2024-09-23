@@ -28,7 +28,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @RestController
-@RequestMapping("/adminRest") //request with /admin will be routed here
+@RequestMapping("/productService")
 public class ProductController {
 
     @Autowired
@@ -57,9 +57,9 @@ public class ProductController {
         return opResponse;
     }
 
-    @GetMapping("/activeProducts")
-    public List<Product> loadViewProduct(){
-        List<Product> products = productService.getAllActiveProducts();
+    @GetMapping("/allProducts")
+    public List<Product> allProduct(){
+        List<Product> products = productService.getAllProducts();
         return products;
     }
     @GetMapping("/activeProducts")
