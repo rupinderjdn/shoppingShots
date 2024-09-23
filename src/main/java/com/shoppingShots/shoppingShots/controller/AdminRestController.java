@@ -122,54 +122,47 @@ public class AdminRestController {
         }
         return opResponse;
     }
-    
+
     @PostMapping("/saveProduct")
-    public String saveProduct(@ModelAttribute Product product,@RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
-        String fileName = file!=null ? file.getOriginalFilename() : "default.jpg";
-        product.setImage(fileName);
-        Product savedProduct = productService.saveProduct(product);
-        if(!ObjectUtils.isEmpty(savedProduct)){
-            // TODO need a common method to save the image
-            logger.info("Saving file");
-            File saveFile = new ClassPathResource("public/img").getFile();
-            Path path = Paths.get(saveFile.getAbsoluteFile()+File.separator+"product_img"+File.separator+product.getImage());
-            logger.info(String.valueOf(path));
-            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-            session.setAttribute("succMsg","Saved successfully");
+    public OpResponse saveProduct(@ModelAttribute Product product,@RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
+        OpResponse opResponse = null;
+        if(!ObjectUtils.isEmpty(product)){
+            String fileName = CommonUtils.checkForImageSave(file,ApplicationConstants.PRODUCT_IMAGE_REF_PATH,"");
+            if(fileName !=null){
+                product.setImage(fileName);
+                Product savedProduct = productService.saveProduct(product);
+                opResponse = new OpResponse("Product saved successfully "+savedProduct.getTitle(),200);
+            }
+            else opResponse = new OpResponse("Error in file saving",400);
         }
         else{
-            session.setAttribute("errorMsg","Something wrong on the server!");
+            opResponse = new OpResponse("Something wrong on the server!",500);
         }
-        return "redirect:/admin/loadAddProduct";
+        return opResponse;
     }
 
     @GetMapping("/products")
-    public String loadViewProduct(Model m){
+    public List<Product> loadViewProduct(Model m){
         List<Product> products = productService.getAllProducts();
-        m.addAttribute("products",products);
-        return "admin/products";
+        return products;
     }
 
     @GetMapping("deleteProduct/{id}")
-    public String deleteProduct(@PathVariable int id,HttpSession session){
+    public OpResponse deleteProduct(@PathVariable int id,HttpSession session){
+        OpResponse opResponse = null;
         Boolean deleteProduct = productService.deleteProduct(id);
         if(deleteProduct){
-            session.setAttribute("succMsg","Product deleted successfully");
+            opResponse = new OpResponse("Product deleted successfully",200);
         }
         else{
-            session.setAttribute("errorMsg","Something wrong on the server");
+            opResponse = new OpResponse("Something wrong on the server",400);
         }
-        return "redirect:admin/products";
-    }
-    @GetMapping("/editProduct/{id}")
-    public String editProduct(@PathVariable int id,Model m) throws IOException {
-        m.addAttribute("product",productService.getProductById(id));
-        m.addAttribute("categories",categoryService.getAllCategory());
-        return "admin/edit_product";
+        return opResponse;
     }
 
     @PostMapping("/updateProduct")
-    public String editProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile file,HttpSession session,Model m) throws IOException {
+    public OpResponse editProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile file,HttpSession session,Model m) throws IOException {
+        OpResponse opResponse = null;
         Product oldProduct = productService.getProductById(product.getId());
         if(!ObjectUtils.isEmpty(oldProduct) && !ObjectUtils.isEmpty(product)){
             oldProduct.setTitle(product.getTitle());
@@ -187,16 +180,18 @@ public class AdminRestController {
             Product savedProduct = productService.saveProduct(oldProduct);
             if(!ObjectUtils.isEmpty(savedProduct)){
                 session.setAttribute("succMsg","Updated successfully");
+                opResponse = new OpResponse("Updated successfully",200);
             }
             else{
                 session.setAttribute("errorMsg","Error in updating");
+                opResponse = new OpResponse("Error in updating",400);
             }
         }
         else{
             session.setAttribute("errorMsg","Something is wrong !");
+            opResponse = new OpResponse("Something is wrong !",500);
         }
-        product = oldProduct;
-        return "redirect:/admin/editProduct/"+product.getId();
+        return opResponse;
     }
 
 }
