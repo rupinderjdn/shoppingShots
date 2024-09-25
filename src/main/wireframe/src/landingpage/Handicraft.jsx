@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -6,6 +6,9 @@ import 'slick-carousel/slick/slick-theme.css';
 // import hand3 from '/img/hand3.webp'; 
 // import hos3 from '/img/hand.webp'; 
 // import others1 from '/img/hand5.webp';
+
+
+//TODO jaspreet displayName and proptypes check are needed here
 export default function Handicraft() {
   // Array of product objects with name and imageSrc
   const products = [ { name: "Product 1", imageSrc: '/img/hand4.jpg' }, { name: "Product 2", imageSrc: '/img/hand3.webp' }, { name: "Product 3", imageSrc: '/img/hand.webp' }, { name: "Product 4", imageSrc: '/img/hand5.webp' }, ];

@@ -1,8 +1,9 @@
-import React from 'react';
+// import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from React Router
 // import hand3 from '/img/hand3.webp'; 
 // import hos3 from '/img/hos3.jpg'; 
 // import others from'/img/others1.jpg'
+//TODO jaspreet displayName and proptypes check are needed here
 const CategorySection = () => {
   const categories = [
     { name: 'Hoisery', imageSrc: '/img/hos3.jpg' },

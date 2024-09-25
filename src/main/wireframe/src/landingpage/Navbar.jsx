@@ -26,7 +26,7 @@ const userNavigation = [
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
-
+//TODO jaspreet displayName and proptypes check are needed here
 const Navbar = () => {
   return (
     <Disclosure as="nav" className="bg-gray-800">

@@ -1,5 +1,5 @@
 
-import React from 'react'; // Importing images
+// import React from 'react'; // Importing images
 //  import others2 from '/img/hand4.jpg'; 
 //  import hand3 from '/img/hand3.webp'; 
 //  import hos3 from '/img/hos3.jpg'; 

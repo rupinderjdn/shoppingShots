@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import Navbar from './Navbar';
 import HeroCarousel from './HeroCrousal';
 import NewArrivals from './NewArrivals';
@@ -7,7 +7,7 @@ import SpecialOffer from './Specialoffer';
 import Footer from './Footer';
 import Handicraft from './Handicraft';
 import Socks from './Socks';
-
+//TODO jaspreet displayName and proptypes check are needed here
 const LandingPage = () => {
   return (
     <>
