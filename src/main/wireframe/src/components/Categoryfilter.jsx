@@ -17,7 +17,7 @@ import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from
 import Pagination from '../pagination/Pagination'
 import { useDispatch } from 'react-redux'
 import {setFiltereddata} from "../slices/filteredproductslice"
-
+// this is the category filter page
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
   { name: 'Best Rating', href: '#', current: false },
